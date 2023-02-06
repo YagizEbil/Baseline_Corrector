@@ -9,7 +9,7 @@ document = input("Enter your document path: ")
 print("\n")
 
 xyreader = XYReader(document)
-x, y = xyreader.x_values, xyread
+x, y = xyreader.x_values, xyreader.y_values
 y_corrected = arPLS_baseline_correction(y)
 baseline_fitter = Baseline(x_data=x)
 bkg_1 = baseline_fitter.mor(y, half_window=30)[0]
