@@ -1,4 +1,5 @@
 import numpy as np
+import os
 import matplotlib.pyplot as plt
 from arPLS import arPLS_baseline_correction
 from pybaselines import Baseline, utils
@@ -20,10 +21,8 @@ plt.plot(x, y, label='Original')
 plt.plot(x,bkg_1,label="mor")
 plt.plot(x,y-bkg_1,label="mor_Corrected")
 plt.plot(x, moving_average(y-bkg_1, window_size=10) , label ="smother")
-  
-document_title = document[::-1]
-document_title = document_title[document_title.find(".")+1:document_title.find("\\")]
-plt.title(document_title[::-1])
+
+plt.title(os.path.basename(xyreader.fileHandle.name))
 plt.xlabel("X Axis")
 plt.ylabel("Y Axis")
 plt.legend()
