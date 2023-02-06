@@ -74,7 +74,9 @@ if documentflag:
   plt.plot(x,y-bkg_1,label="mor_Corrected")
   plt.plot(x, moving_average(y-bkg_1, window_size=10) , label ="smother")
   
-  plt.title("Baseline_Correction")
+  document_title = document[::-1]
+  document_title = document_title[document_title.find(".")+1:document_title.find("\\")]
+  plt.title(document_title[::-1])
   plt.xlabel("X Axis")
   plt.ylabel("Y Axis")
   plt.legend()
