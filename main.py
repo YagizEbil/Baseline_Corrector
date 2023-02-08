@@ -6,9 +6,23 @@ from pybaselines import Baseline, utils
 from smoothie import moving_average
 from read_data import XYReader
 import pandas as pd 
+from input_system import MultipleChoiceQuestion
+from input_system import FileSelector
+from input_system import OpenEndedQuestion
 
-document = input("Enter your document path: ")
-print("\n")
+fs = FileSelector("txt,csv,xlsx","doc/")
+
+document = ""
+
+if fs.foundFiles():
+    q = MultipleChoiceQuestion("Would you like to open automatically detected files?","",["Pick From Detected Files", "Pick A Custom File"])
+    if q.ask().getIndex()==0: document = fs.ask().getValue()
+
+if document=="":
+    q = OpenEndedQuestion("Specify a custom file path", "")
+    document = q.ask().getValue()
+
+print(f"Opening document {document}")
 
 xyreader = XYReader(document)
 
