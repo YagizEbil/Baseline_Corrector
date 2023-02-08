@@ -7,7 +7,7 @@ class XYReader:
     def __init__(self, filePath):
         self.file = filePath
         self.fileHandle = open(self.file, 'r')
-        file_type = filePath.split(".")[-1]
+        file_type = filePath.split(".")[-1].lower()
         
         data = getattr(self, 'read_' + file_type, lambda: "err")()
         if data == "err": raise ValueError(
