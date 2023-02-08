@@ -21,7 +21,7 @@ class XYReader:
             for row in csv.reader(self.fileHandle):
                 self.x_values.append(float(row[0]))
                 self.y_values.append(float(row[1]))
-            self.values.append((self.x_values.copy(), self.y_values.copy()))
+            self.values.append((self.x_values.copy(), self.y_values.copy(), "Data"))
             self.clear()
     
     def read_txt(self):
@@ -29,7 +29,7 @@ class XYReader:
                 values = line.split(" ")
                 self.x_values.append(float(values[0]))
                 self.y_values.append(float(values[1][:values[1].find("\n")]))
-            self.values.append((self.x_values.copy(), self.y_values.copy()))
+            self.values.append((self.x_values.copy(), self.y_values.copy(), "Data"))
             self.clear()
 
     def read_xlsx(self):
@@ -40,5 +40,5 @@ class XYReader:
                 self.x_values.append(x)
             for y in var.iloc[:, 1]:
                 self.y_values.append(y)
-            self.values.append((self.x_values.copy(), self.y_values.copy()))
+            self.values.append((self.x_values.copy(), self.y_values.copy(), sheet_name))
             self.clear()
