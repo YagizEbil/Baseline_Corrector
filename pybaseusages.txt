@@ -1,0 +1,54 @@
+-----------------------------------------
+poly(data: Any, poly_order: int = 2)[0]
+data : array-like, shape (N,)
+    The y-values of the measured data, with N data points.
+poly_order : int, optional
+    The polynomial order for fitting the baseline. Default is 2.
+
+----------------------------------------------------------------------------------------
+penalized_poly(data: Any, poly_order: int = 2, tol: float = 0.001, max_iter: int = 250
+poly_order : int, optional
+    The polynomial order for fitting the baseline. Default is 2.
+tol : float, optional
+    The exit criteria. Default is 1e-3.
+max_iter : int, optional
+    The maximum number of iterations. Default is 250.
+
+-----------------------------------
+mor(data: Any, half_window: Any)
+data : array-like, shape (N,)
+    The y-values of the measured data, with N data points.
+half_window : int, optional
+    The half-window used for the morphology functions. If a value is input, then that value will be used. Default is None, which will optimize the half-window size using .optimize_window and window_kwargs.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+mpls(data: Any, half_window: Any | None = None, lam: float = 1000000, p: float = 0, diff_order: int = 2, tol: float = 0.001, max_iter: int = 50
+half_window : int, optional
+    The half-window used for the morphology functions. If a value is input, then that value will be used. Default is None, which will optimize the half-window size using .optimize_window and window_kwargs.
+lam : float, optional
+    The smoothing parameter. Larger values will create smoother baselines. Default is 1e6.
+p : float, optional
+    The penalizing weighting factor. Must be between 0 and 1. Anchor points identified by the procedure in [4]_ are given a weight of 1 - p, and all other points have a weight of p. Default is 0.0.
+diff_order : int, optional
+    The order of the differential matrix. Must be greater than 0. Default is 2 (second order differential matrix). Typical values are 2 or 1.
+max_iter : int, optional
+    The max number of fit iterations. Default is 50.
+tol : float, optional
+    The exit criteria. Default is 1e-3.
+
+------------------------------------------------------------------------------------------------------------------------------
+rolling_ball(data: Any, half_window: Any | None = None, smooth_half_window: Any | None = None, pad_kwargs: Any | None = None,)
+half_window : int, optional
+    The half-window used for the morphology functions. If a value is input, then that value will be used. Default is None, which will optimize the half-window size using .optimize_window and window_kwargs.
+smooth_half_window : int, optional
+    The half-window to use for smoothing the data after performing the morphological operation. Default is None, which will use the same value as used for the morphological operation.
+pad_kwargs : dict, optional
+    A dictionary of keyword arguments to pass to .pad_edges for padding the edges of the data to prevent edge effects from the moving average.
+
+--------------------------------------------------
+tophat(data: Any, half_window: Any | None = None)
+half_window : int, optional
+    The half-window used for the morphological opening. If a value is input, then that value will be used. Default is None, which will optimize the half-window size using .optimize_window and window_kwargs.
+
+-------------------------------------------------------------------------------------------------------------
+quant_reg(data: Any, poly_order: int = 2, quantile: float = 0.05, tol: float = 0.000001, max_iter: int = 250

@@ -35,14 +35,14 @@ for i in xyreader.values:
     x,y = x[idx1:idx2],y[idx1:idx2]
     y_corrected = arPLS_baseline_correction(y)
     baseline_fitter = Baseline(x_data=x)
-    bkg_1 = baseline_fitter.mor(y, half_window=30)[0]
+    bkg = baseline_fitter.poly(y, poly_order=10)[0]
 
     #plt.plot(x, y, label='Original')
     #plt.plot(x, y_corrected, label='arPLS')
     #plt.plot(x, y-y_corrected, label="arPLS_Corrected")
-    #plt.plot(x,bkg_1,label="mor")
+    #plt.plot(x,bkg,label="mor")
     #plt.plot(x,y-bkg_1,label="mor_Corrected")
-    plt.plot(x, min_max_normalization(moving_average(y-bkg_1, window_size=10)) , label = name.capitalize())
+    plt.plot(x, min_max_normalization(moving_average(y-bkg, window_size=10)) , label = name.capitalize())
     xyreader.clear()
 
 plt.title(os.path.basename(xyreader.fileHandle.name))
