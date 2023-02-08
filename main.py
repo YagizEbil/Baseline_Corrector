@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 from arPLS import arPLS_baseline_correction
 from pybaselines import Baseline, utils
 from smoothie import moving_average
-from normalizer import min_max_normalization
+from process_data import min_max_normalization
+from process_data import find_closest_index
 from read_data import XYReader
 import pandas as pd 
 from input_system import MultipleChoiceQuestion
