@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from arPLS import arPLS_baseline_correction
 from pybaselines import Baseline, utils
 from smoothie import moving_average
+from normalizer import min_max_normalization
 from read_data import XYReader
 import pandas as pd 
 
@@ -26,7 +27,7 @@ for i in xyreader.values:
     #plt.plot(x, y-y_corrected, label="arPLS_Corrected")
     #plt.plot(x,bkg_1,label="mor")
     #plt.plot(x,y-bkg_1,label="mor_Corrected")
-    plt.plot(x, moving_average(y-bkg_1, window_size=10) , label = name.capitalize())
+    plt.plot(x, min_max_normalization(moving_average(y-bkg_1, window_size=10)) , label = name.capitalize())
     xyreader.clear()
 
 plt.title(os.path.basename(xyreader.fileHandle.name))
