@@ -16,8 +16,8 @@ class Settings:
   #      self.save()
     
     def defaults(self):
-        self.addDefault("threshold_cutoff_start",800)
-        self.addDefault("threshold_cutoff_end",1000)
+        self.addDefault("threshold_cutoff_start",0)
+        self.addDefault("threshold_cutoff_end",2500)
         self.addDefault("threshold_enabled", False)
 
     def showSettingsMenu(self):

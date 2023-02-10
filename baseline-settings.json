@@ -1,5 +1,5 @@
 {
-    "threshold_cutoff_end": 1000,
-    "threshold_cutoff_start": 800,
-    "threshold_enabled": "True"
+    "threshold_cutoff_end": 2500,
+    "threshold_cutoff_start": 0,
+    "threshold_enabled": false
 }

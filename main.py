@@ -1,4 +1,5 @@
 import os
+import sys
 import matplotlib.pyplot as plt
 import logging 
 from arPLS import arPLS_baseline_correction
@@ -9,6 +10,7 @@ from process_data import moving_average, min_max_normalization, find_closest_ind
 from input_system import MultipleChoiceQuestion, FileSelector, OpenEndedQuestion
 
 logging.basicConfig(level=logging.INFO,format='[BaselineCorrector] [%(levelname)s]: %(message)s')
+
 settings = Settings()
 fs = FileSelector("txt,csv,xlsx","doc/")
 
@@ -17,10 +19,13 @@ def show_main_menu():
     detectedFileOption = "Pick From Detected Files"
     customFileOption = "Pick A Custom File"
     settingsOption = "Change Settings"
+    quitOption = "Quit"
 
     if fs.foundFiles(): mainMenu.addOption(detectedFileOption)
     mainMenu.addOption(customFileOption)
     mainMenu.addOption(settingsOption)
+    mainMenu.addOption(quitOption)
+
     document=""
     while(True):
         mainResponse = mainMenu.ask().getValue()
@@ -37,6 +42,8 @@ def show_main_menu():
 
         elif mainResponse == settingsOption:
             settings.showSettingsMenu()
+        elif mainResponse == quitOption:
+            sys.exit()
     plot_document(document)
     settings.save()
 
@@ -49,7 +56,7 @@ def plot_document(document):
     for i in xyreader.values:
         x,y,name = wavenumber_converter(i[0]), i[1], i[2]
 
-        if settings.getSetting("threshold_enabled") == "True": #bool(settings.getSetting("threshold_enabled")):
+        if str(settings.getSetting("threshold_enabled")).lower() == "true": #bool(settings.getSetting("threshold_enabled")):
             dataStartIndex = find_closest_index(float(settings.getSetting("threshold_cutoff_start")), x)
             dataEndIndex = find_closest_index(float(settings.getSetting("threshold_cutoff_end")), x)
 
@@ -58,17 +65,18 @@ def plot_document(document):
             else:
                 logging.error(f"Couldn't apply threshold, showing unaltered graph.")
 
-        y_corrected = arPLS_baseline_correction(y)
+       # y_corrected = arPLS_baseline_correction(y)
         baseline_fitter = Baseline(x_data=x)
         bkg_1 = baseline_fitter.mor(y, half_window=30)[0]
 
+        plt.clf()
         plt.plot(x, min_max_normalization(moving_average(y-bkg_1, window_size=10)) , label = name.capitalize())
         xyreader.clear()
 
-   # plt.title(os.path.basename(xyreader.fileHandle.name))
     plt.xlabel("Raman Shift Wavenumber (cm-1)")
     plt.ylabel("Intensity (a.u.)")
     plt.legend()
     plt.show()
 
-show_main_menu()
+while(True):
+    show_main_menu()
