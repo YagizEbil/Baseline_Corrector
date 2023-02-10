@@ -11,7 +11,7 @@ class XYReader:
         
         data = getattr(self, 'read_' + file_type, lambda: "err")()
         if data == "err": raise ValueError(
-            f"File type {file_type} not supported. Please provide a CSV, txt, or xlsx file.")
+            f"File type {file_type} not supported. Please provide a csv, txt, or xlsx file.")
 
     def clear(self):
          self.x_values.clear()

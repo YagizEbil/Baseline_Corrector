@@ -13,4 +13,22 @@ def find_closest_index(val, data):
             minErr = err
             index = i
     return index
-        
+
+def moving_average(sequence, window_size=3):
+    smoothed_sequence = []
+    for i in range(len(sequence)):
+        if i < window_size - 1:
+            smoothed_sequence.append(sequence[i])
+        else:
+            window = sequence[i - window_size + 1: i + 1]
+            smoothed_value = sum(window) / window_size
+            smoothed_sequence.append(smoothed_value)
+    return smoothed_sequence
+
+def wavenumber_converter(nmList):
+    wnList = []
+    for nm in nmList:
+        a = 10**7/785
+        wn = 10**7/nm
+        wnList.append(a-wn)
+    return wnList
