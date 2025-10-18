@@ -12,7 +12,7 @@ from input_system import MultipleChoiceQuestion, FileSelector, OpenEndedQuestion
 logging.basicConfig(level=logging.INFO,format='[BaselineCorrector] [%(levelname)s]: %(message)s')
 
 settings = Settings()
-fs = FileSelector("txt,csv,xlsx","doc/")
+fs = FileSelector("txt,csv,xlsx,xy","doc/")
 
 def show_main_menu():
     mainMenu = MultipleChoiceQuestion("====Baseline Corrector====","",[])

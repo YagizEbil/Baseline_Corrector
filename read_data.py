@@ -11,7 +11,7 @@ class XYReader:
         
         data = getattr(self, 'read_' + file_type, lambda: "err")()
         if data == "err": raise ValueError(
-            f"File type {file_type} not supported. Please provide a csv, txt, or xlsx file.")
+            f"File type {file_type} not supported. Please provide a csv, txt, xlsx, or xy file.")
 
     def clear(self):
          self.x_values.clear()
@@ -41,4 +41,22 @@ class XYReader:
             for y in var.iloc[:, 1]:
                 self.y_values.append(y)
             self.values.append((self.x_values.copy(), self.y_values.copy(), sheet_name))
+            self.clear()
+
+    def read_xy(self):
+            for line in self.fileHandle:
+                stripped = line.strip()
+                if not stripped or stripped.startswith("#"):
+                    continue
+                parts = stripped.replace(",", " ").split()
+                if len(parts) < 2:
+                    continue
+                try:
+                    x_val = float(parts[0])
+                    y_val = float(parts[1])
+                except ValueError:
+                    continue
+                self.x_values.append(x_val)
+                self.y_values.append(y_val)
+            self.values.append((self.x_values.copy(), self.y_values.copy(), "Data"))
             self.clear()
